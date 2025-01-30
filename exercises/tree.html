@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Fraktal-Baum</title>
+    <link rel="stylesheet" href="../parsons.css" />
+    <link rel="stylesheet" href="../lib/prettify.css" />
+    <script src="../lib/prettify.js"></script>
+    <meta charset="utf8" />
+</head>
+
+<body>
+    <h2>Fraktal-Baum zeichnen</h2>
+    <p>Ein Baum kann als Fraktal, d.h. als grafisches Objekt mit
+        <i>Selbstähnlichkeit</i>, schematisch gezeichnet werden. Der
+        Baum besteht aus einem Stamm und Zweigen, die jeweils links und
+        rechts symmetrisch angeordnet sind. Die Zweige bilden nach
+        Aufteilen der Strecke in zwei Hälften jeweils neue Stämme. Um
+        einen fraktalen Baum beliebiger Stufe \(n\) zu zeichnen, führt man
+        einen rekursiven Algorithmus aus. Z.B. sieht ein fraktaler Baum
+        der Tiefe \(n=7\) wie folgt aus:
+    </p>
+
+    <img src = "../img/tree.svg" alt="Fraktal-Baum" width="417pt" height="590pt"/>
+
+    <p>Lösen Sie das Problem, indem Sie den nachfolgenden Python-Code in
+        die richtige Reihenfolge bringen. Beachten Sie, dass der Baum mit
+        dem Modul <TT>turtle</TT> gezeichnet wird und lediglich die
+        Funktion zum Zeichnen des Baumes implementiert werden muss.
+        Funktionen, die nicht näher spezifiziert sind, dürfen Sie als
+        gegeben annehmen.</p>
+
+    <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
+        verschoben werden, sodass das Programm lauffähig ist. Der Wert 
+        der Felder (<span class="jsparson-toggle"></span>) kann durch 
+        Klicken verändert werden.</p>
+    <div id="sortableTrash" class="sortable-code">
+        <p>Trash</p>
+    </div>
+    <div id="sortable" class="sortable-code">
+        <p>Solution</p>
+    </div>
+    <div style="clear:both;"></div>
+    <p>
+        <a href="#" id="newInstanceLink">Shuffle</a>
+        <a href="#" id="feedbackLink">Feeback erhalten</a>
+    </p>
+    <div id="unittest"></div>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+    <script src="../lib/underscore-min.js"></script>
+    <script src="../lib/lis.js"></script>
+    <script src="../parsons.js"></script>
+    <script src="../lib/skulpt.js"></script>
+    <script src="../lib/skulpt-stdlib.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        var initial = "def draw_tree(branch_length, level):\n" +
+            "  if level > 0:\n" +
+            "    turtle.forward(branch_length)\n" +
+            "    turtle.right(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
+            "    draw_tree(branch_length / 2, level - 1)\n" +
+            "    turtle.left(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
+            "    draw_tree(branch_length / 2, level - 1)\n" +
+            "    turtle.right(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
+            "    turtle.backward(branch_length)\n" +
+            "  else:\n" +
+            "    draw_blossom()\n"
+        var unittests = 'import unittestparson\n' +
+            'class myTests(unittestparson.unittest):\n' +
+            '  def testOne(self):\n' +
+            '    pass\n' +
+            '_test_result = myTests().main()';
+        $(document).ready(function () {
+            var parson = new ParsonsWidget({
+                'sortableId': 'sortable',
+                'trashId': 'sortableTrash',
+                'unittests': unittests,
+                toggleTypeHandlers: { degree: ["30", "45", "60", "75", "90"] }
+            });
+            parson.init(initial);
+            parson.shuffleLines();
+            $("#newInstanceLink").click(function (event) {
+                event.preventDefault();
+                parson.shuffleLines();
+            });
+            $("#feedbackLink").click(function (event) {
+                event.preventDefault();
+                var fb = parson.getFeedback();
+                $("#unittest").html("<h2>Feedback vom Testen:</h2>" + fb.feedback);
+                if (fb.success) { alert("!"); }
+            });
+        });
+    </script>
+</body>
+
+</html>

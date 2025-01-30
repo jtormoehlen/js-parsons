@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Palindrome</title>
+    <link href="../parsons.css" rel="stylesheet" />
+    <link href="../lib/prettify.css" rel="stylesheet" />
+    <script src="../lib/prettify.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+</head>
+
+<body>
+    <h2>Palindrome erkennen</h2>
+    <p>Ein Palindrom ist eine Zeichenkette, die vorwärts wie
+        rückwärts gelesen identisch ist. Palindrome finden in den
+        verschiedensten Disziplinen Anwendung, z.B. gibt es in der
+        Genetik palindromische Sequenzen der DNA mit den Basen Adenin
+        (A), Cytosin (C), Guanin (G) und Thymin (T). Im Folgenden
+        soll ein rekursiver Algorithmus entworfen werden, der
+        prinzipiell prüft, ob eine Zeichenkette ein Palindrom ist.
+        Eine Instanz benachbarter Basen kann vereinfacht wie folgt
+        aussehen:</p>
+    <script type="text/tikz">
+            \begin{tikzpicture}
+                \definecolor{magenta}{RGB}{148,103,189}
+                \definecolor{red}{RGB}{214,39,40}
+                \definecolor{green}{RGB}{44,160,44}
+                \definecolor{blue}{RGB}{31,119,180}
+
+                \fill[green] (0,0) rectangle (1,1);
+                \node at (0.5, 0.5) {A};
+
+                \fill[red] (1,0) rectangle (2,1);
+                \node at (1.5, 0.5) {C};
+
+                \fill[magenta] (2,0) rectangle (3,1);
+                \node at (2.5, 0.5) {T};
+
+                \fill[blue] (3,0) rectangle (4,1);
+                \node at (3.5, 0.5) {G};
+
+                \fill[magenta] (4,0) rectangle (5,1);
+                \node at (4.5, 0.5) {T};
+
+                \fill[red] (5,0) rectangle (6,1);
+                \node at (5.5, 0.5) {C};
+
+                \fill[green] (6,0) rectangle (7,1);
+                \node at (6.5, 0.5) {A};
+            \end{tikzpicture}
+        </script>
+    <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
+        verschoben werden, sodass das Programm lauffähig ist.</p>
+    <div id="sortableTrash" class="sortable-code"></div>
+    <div id="sortable" class="sortable-code">
+    </div>
+    <div style="clear:both;"></div>
+    <p>
+        <a href="#" id="newInstanceLink">Shuffle</a>
+        <a href="#" id="feedbackLink">Feeback erhalten</a>
+    </p>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+    <script src="../lib/underscore-min.js"></script>
+    <script src="../lib/lis.js"></script>
+    <script src="../parsons.js"></script>
+    <script>
+        var initial = 'def is_palindrome(sequence, left, right):\n' +
+            '  if left >= right:\n' +
+            '    return True\n' +
+            '  if sequence[left] != sequence[right]:\n' +
+            '    return False\n' +
+            '  return false #distractor\n' +
+            '  return is_palindrome(sequence, left + 1, right - 1)\n'
+
+        function displayErrors(fb) {
+            if (fb.errors.length > 0) {
+                alert(fb.errors[0]);
+            }
+        }
+
+        $(document).ready(function () {
+            var parson = new ParsonsWidget({
+                'sortableId': 'sortable',
+                'trashId': 'sortableTrash',
+                'max_wrong_lines': 1,
+                'feedback_cb': displayErrors
+            });
+            parson.init(initial);
+            parson.shuffleLines();
+            $("#newInstanceLink").click(function (event) {
+                event.preventDefault();
+                parson.shuffleLines();
+            });
+            $("#feedbackLink").click(function (event) {
+                event.preventDefault();
+                parson.getFeedback();
+            });
+        });
+    </script>
+</body>
+
+</html>
