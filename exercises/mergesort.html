@@ -42,7 +42,7 @@
     </ul>
 
     <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass das Programm lauffähig ist.</p>
+        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -51,12 +51,15 @@
         <a href="#" id="newInstanceLink">Shuffle</a>
         <a href="#" id="feedbackLink">Feeback erhalten</a>
     </p>
+    <div id="jsparson"></div>
     <script src="../lib/jquery.min.js"></script>
     <script src="../lib/jquery-ui.min.js"></script>
     <script src="../lib/jquery.ui.touch-punch.min.js"></script>
     <script src="../lib/underscore-min.js"></script>
     <script src="../lib/lis.js"></script>
     <script src="../parsons.js"></script>
+    <script src="../lib/skulpt.js"></script>
+    <script src="../lib/skulpt-stdlib.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
@@ -83,18 +86,37 @@
             '  merged.extend(right[j:])\n' +
             '  return merged\n'
 
-        function displayErrors(fb) {
-            if (fb.errors.length > 0) {
-                alert(fb.errors[0]);
-            }
-        }
+        var unittests = 'import unittestparson\n' +
+            'class myTests(unittestparson.unittest):\n' +
+            '  def testOne(self):\n' +
+            '    self.assertEqual(mergesort([7, 6, 5, 4, 3, 2, 1]), [1, 2, 3, 4, 5, 6, 7],' +
+            '      "Calling function <code>mergesort([7, 6, 5, 4, 3, 2, 1])</code>.")\n' +
+            '    self.assertEqual(mergesort([21, 33, 56, 2, 60, 98, 59]), [2, 21, 33, 56, 59, 60, 98],' +
+            '      "Calling function <code>mergesort([21, 33, 56, 2, 60, 98, 59])</code>.")\n' +
+            '    self.assertEqual(mergesort([1, 1, 1, 1, 1, 1, 1]),[1, 1, 1, 1, 1, 1, 1],' +
+            '      "Calling function <code>mergesort([1, 1, 1, 1, 1, 1, 1])</code>.")\n' +
+            '  def testTwo(self):\n' +
+            '    self.assertEqual(mergesort([2, 2, 2, 1, 2, 2, 2]),[1, 2, 2, 2, 2, 2, 2],' +
+            '      "Calling function <code>mergesort([2, 2, 2, 1, 2, 2, 2])</code>.")\n' +
+            '    self.assertEqual(mergesort([]),[],' +
+            '      "Calling function <code>mergesort([])</code>.")\n' +
+            '    self.assertEqual(mergesort([1]),[1],' +
+            '      "Calling function <code>mergesort([1])</code>.")\n' +
+            '_test_result = myTests().main()';
+
+        // function displayErrors(fb) {
+        //     if (fb.errors.length > 0) {
+        //         alert(fb.errors[0]);
+        //     }
+        // }
 
         $(document).ready(function () {
             var parson = new ParsonsWidget({
                 'sortableId': 'sortable',
                 'trashId': 'sortableTrash',
-                'max_wrong_lines': 1,
-                'feedback_cb': displayErrors
+                // 'max_wrong_lines': 1,
+                // 'feedback_cb': displayErrors,
+                'unittests': unittests
             });
             parson.init(initial);
             parson.shuffleLines();
@@ -104,7 +126,10 @@
             });
             $("#feedbackLink").click(function (event) {
                 event.preventDefault();
-                parson.getFeedback();
+                var fb = parson.getFeedback();
+                $("#jsparson").html("<h2>Feedback vom Test:</h2>" +
+                    fb.feedback);
+                if (fb.success) { alert("Programm korrekt."); }
             });
         });
     </script>

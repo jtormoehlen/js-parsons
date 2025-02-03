@@ -332,6 +332,7 @@
   // Execute the model turtlet code
   TurtleGrader.prototype._executeTurtleModel = function () {
     var code = "import parsonturtle\nmodelTurtle = parsonturtle.ParsonTurtle()\n" +
+      // "modelTurtle.color(255, 255, 255, False)\n" +
       "modelTurtle.color(160, 160, 160, False)\n" +
       this.parson.options.turtleModelCode +
       "\ncommands = modelTurtle.commands()\n";

@@ -20,7 +20,8 @@
         erhalten. Die inneren Felder berechnen sich aus der Summe der
         Werte aus der vorgehenden Zeile. Die aktuelle Zeile wird mit
         \(i\) und die aktuelle Spalte mit \(j\) angegeben, wobei
-        \(i,j \in \left\{ 0, \dots ,n-1 \right\}\). Im Folgenden ist
+        \(i \in \left\{ 0, \dots ,n-1 \right\}\) und 
+        \(j \in \left\{ 0, \dots ,i \right\}\). Im Folgenden ist
         die Konstruktion grafisch dargestellt:</p>
 
     <script type="text/tikz">
@@ -66,10 +67,10 @@
                 \node at (1.5, 0.5){4};
                 \node at (0.5, 0.5){1};
             \end{tikzpicture}
-        </script>
+    </script>
 
     <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass das Programm lauffähig ist.</p>
+        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -100,7 +101,7 @@
             'inner_sum = int()\n' +
             'for i in range(2, n):\n' +
             '  inner_sum += sum_rec([binom(i, j) for i in range(1, j)])\n' +
-            '  numbers = numbers[1:-1] #distractor\n'
+            '  numbers = numbers[1:-1] #distractor\n';
 
         function displayErrors(fb) {
             if (fb.errors.length > 0) {

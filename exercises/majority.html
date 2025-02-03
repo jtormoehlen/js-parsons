@@ -8,13 +8,15 @@
     <script src="../lib/prettify.js"></script>
     <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
     <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <meta charset="utf8" />
 </head>
 
 <body>
     <h2>Mehrheitselement bestimmen</h2>
-    <p>Ein Mehrheitselement ist das Element, das mehr als die Hälfte
-        der Elemente im Array ausmacht. Eine Beispielinstanz könnte
-        so aussehen:</p>
+    <p>Ein Mehrheitselement ist ein Element in einer Menge oder einem
+        Array, das mehr als die Hälfte der Gesamtanzahl der Elemente in
+        dieser Menge oder diesem Array enthält. Eine Beispielinstanz
+        könnte wie folgt aussehen:</p>
 
     <script type="text/tikz">
             \begin{tikzpicture}
@@ -45,14 +47,14 @@
             \end{tikzpicture}
         </script>
 
-    <p>In diesem Fall ist das Mehrheitselement 6, da dieses viermal
-        enthalten ist und die Länge des Arrays 7 beträgt.
+    <p>In diesem Fall ist das Mehrheitselement 6, da es viermal
+        enthalten ist, während die Länge des Arrays 7 beträgt.
         Rekonstruieren Sie den nachfolgenden Code, der das
         Mehrheitselement in einem gegebenen Array von Zahlen mittels
         eines Divide-and-Conquer-Verfahrens rekursiv bestimmt.</p>
 
     <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass das Programm lauffähig ist.</p>
+        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -61,12 +63,15 @@
         <a href="#" id="newInstanceLink">Shuffle</a>
         <a href="#" id="feedbackLink">Feeback erhalten</a>
     </p>
+    <div id="jsparson"></div>
     <script src="../lib/jquery.min.js"></script>
     <script src="../lib/jquery-ui.min.js"></script>
     <script src="../lib/jquery.ui.touch-punch.min.js"></script>
     <script src="../lib/underscore-min.js"></script>
     <script src="../lib/lis.js"></script>
     <script src="../parsons.js"></script>
+    <script src="../lib/skulpt.js"></script>
+    <script src="../lib/skulpt-stdlib.js"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
@@ -78,12 +83,9 @@
             '  maj_right = maj_elem(arr, mid + 1, right)\n' +
             '  if maj_left == maj_right:\n' +
             '    return maj_left\n' +
-            '  else:\n' +
-            '    return numbers[0] + sum_rec(numbers[1:])\n' +
-            '  count_left = sum(1 for i in range(left, right + 1)\\n' +
-            '                   if arr[i] == maj_left)\n' +
-            '  count_right = sum(1 for i in range(left, right + 1)\\n' +
-            '                    if arr[i] == maj_right)\n' +
+            '  else: #distractor\n' +
+            '  count_left = sum(1 for i in range(left, right + 1) if arr[i] == maj_left)\n' +
+            '  count_right = sum(1 for i in range(left, right + 1) if arr[i] == maj_right)\n' +
             '  if count_left > (right - left + 1) // 2:\n' +
             '    return maj_left\n' +
             '  elif count_right > (right - left + 1) // 2:\n' +
@@ -91,18 +93,28 @@
             '  else:\n' +
             '    return None\n'
 
-        function displayErrors(fb) {
-            if (fb.errors.length > 0) {
-                alert(fb.errors[0]);
-            }
-        }
+        var unittests = 'import unittestparson\n' +
+            'class myTests(unittestparson.unittest):\n' +
+            '  def testOne(self):\n' +
+            '    self.assertEqual(maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6),3,' +
+            '      "Calling function <code>maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6)</code>.")\n' +
+            '    self.assertEqual(maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6),None,' +
+            '      "Calling function <code>maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6)</code>.")\n' +
+            '_test_result = myTests().main()';
+
+        // function displayErrors(fb) {
+        //     if (fb.errors.length > 0) {
+        //         alert(fb.errors[0]);
+        //     }
+        // }
 
         $(document).ready(function () {
             var parson = new ParsonsWidget({
                 'sortableId': 'sortable',
                 'trashId': 'sortableTrash',
-                'max_wrong_lines': 1,
-                'feedback_cb': displayErrors
+                // 'max_wrong_lines': 1,
+                // 'feedback_cb': displayErrors,
+                'unittests': unittests
             });
             parson.init(initial);
             parson.shuffleLines();
@@ -112,7 +124,10 @@
             });
             $("#feedbackLink").click(function (event) {
                 event.preventDefault();
-                parson.getFeedback();
+                var fb = parson.getFeedback();
+                $("#jsparson").html("<h2>Feedback vom Test:</h2>" +
+                    fb.feedback);
+                if (fb.success) { alert("Programm korrekt."); }
             });
         });
     </script>
