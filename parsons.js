@@ -48,33 +48,33 @@
       trash_label: 'Drag hier',
       solution_label: 'Drop hier',
       order: function () {
-        return "Die Codefragmente in Ihrem Programm sind falsch oder in der falschen Reihenfolge. Dies kann behoben werden, indem die hervorgehobenen Fragmente verschoben, entfernt oder ersetzt werden.";
+        return "Die Codefragmente im Programm sind falsch oder in der falschen Reihenfolge. Dies kann behoben werden, indem die hervorgehobenen Fragmente verschoben, entfernt oder ersetzt werden.";
       },
       lines_missing: function () {
-        return "Ihr Programm hat nicht genügend Codefragmente.";
+        return "Das Programm hat nicht genügend Codefragmente.";
       },
       lines_too_many: function () {
-        return "Ihr Programm hat zu viele Codefragmente.";
+        return "Das Programm hat zu viele Codefragmente.";
       },
       no_matching: function (lineNro) {
         return "Basierend auf der Sprachsyntax ist das hervorgehobene Fragment (" + lineNro + ") nicht korrekt eingerückt.";
       },
       no_matching_open: function (lineNro, block) {
-        return "Der " + block + " endete in Zeile " + lineNro + ", begann jedoch nie.";
+        return "Der Block " + block + " endete in Zeile " + lineNro + ", begann jedoch nie.";
       },
       no_matching_close: function (lineNro, block) {
         return "Block " + block + " definiert in Zeile " + lineNro + " wurde nicht ordnungsgemäß beendet.";
       },
       block_close_mismatch: function (closeLine, closeBlock, openLine, inBlock) {
-        return "Block " + closeBlock + " in Zeile " + closeLine + " kann nicht beendet werden, solange Block " + inBlock + " ausgeführt wird, der in Zeile " + openLine + " beginnt.";
+        return "Block " + closeBlock + " in Zeile " + closeLine + " kann nicht beendet werden, solange Block " + inBlock + " ausgeführt wird, der in Zeile " + openLine + " begann.";
       },
-      block_structure: function (lineNro) { return "Das hervorgehobene Fragment " + lineNro + " gehört zu einem falschen Block (d.h. Einrückung)."; },
+      block_structure: function (lineNro) { return "Das hervorgehobene Fragment " + lineNro + " gehört zu einem falschen Block (Einrückung)."; },
       unittest_error: function (errormsg) {
-        return "<span class='msg'>Fehler beim Parsen/Ausführen Ihres Programms</span><br/> <span class='errormsg'>" + errormsg + "</span>";
+        return "<span class='msg'>Fehler beim Parsen/Ausführen des Programms</span><br/> <span class='errormsg'>" + errormsg + "</span>";
       },
       unittest_output_assertion: function (expected, actual) {
         return "Erwartete Ausgabe: <span class='expected output'>" + expected + "</span>" +
-          "Ausgabe Ihres Programms: <span class='actual output'>" + actual + "</span>";
+          "Ausgabe des Programms: <span class='actual output'>" + actual + "</span>";
       },
       unittest_assertion: function (expected, actual) {
         return "Erwarteter Wert: <span class='expected'>" + expected + "</span><br>" +
@@ -939,6 +939,7 @@
   };
   ParsonsWidget._graders = graders;
 
+
   ////Public methods
 
   // Parses an assignment definition given as a string and returns and 
@@ -955,6 +956,13 @@
       lineObject,
       errors = [],
       that = this;
+    
+    // function numberingPrefix(string, number) {
+    //   const prefix = `${number} | `;
+    //   number++;
+    //   return prefix + string;
+    // }
+    
     // Create line objects out of each codeline and separate
     // lines belonging to the solution and distractor lines
     // Fields in line objects:
@@ -968,6 +976,7 @@
     $.each(lines, function (index, item) {
       lineObject = new ParsonsCodeline(item, that);
       lineObject.orig = index;
+      // lineObject.code = numberingPrefix(lineObject.code, index)
       if (item.search(/#distractor\s*$/) >= 0) {
         // This line is a distractor
         lineObject.indent = -1;
@@ -1455,6 +1464,45 @@
     this.addLogEntry({ type: 'init', time: new Date(), bindings: bindings });
   };
 
+  /**
+   * Numbering for consecutive lines
+   * toggle numbering state with @var isNumbered
+   * @author jtormoehlen
+   */
+  ParsonsWidget.prototype.numbering = function (isNumbered) {
+    function insertNumbering(line, number) {
+      // Generate prefix based on current line number
+      const prefix = `${number} | `;
+      // number++;
+      // Recombine prefix and original code
+      return prefix + line;
+    }
+
+    function removeNumbering(line) {
+      //Search for index of ' | '
+      const prefixIndex = line.indexOf(' | ');
+      
+      // Cut off prefix if existent
+      if (prefixIndex !== -1) {
+          // Skip position with '_|_' (+3)
+          return line.substring(prefixIndex + 3);
+      }
+
+      return line;
+    }
+
+    if (!isNumbered) {
+      for (let i = 0; i < this.modified_lines.length; i++) {
+        this.modified_lines[i].code = insertNumbering(this.modified_lines[i].code, i);
+        console.log(this.modified_lines[i].code)
+      }
+    } else {
+      for (let i = 0; i < this.modified_lines.length; i++) {
+        this.modified_lines[i].code = removeNumbering(this.modified_lines[i].code);
+        console.log(this.modified_lines[i].code)
+      }
+    }
+  }
 
   window['ParsonsWidget'] = ParsonsWidget;
 }
