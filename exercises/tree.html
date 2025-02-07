@@ -1,99 +1,169 @@
 <!doctype html>
 <html>
+    <head>
+        <title>Fraktal-Baum</title>
+        <link href="../parsons.css" rel="stylesheet" />
+        <link href="../lib/prettify.css" rel="stylesheet" />
+        <script src="../lib/prettify.js"></script>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <h2>Fraktal-Baum zeichnen</h2>
+        <p>Ein Baum kann als Fraktal, d.h. als grafisches Objekt mit
+            <i>Selbstähnlichkeit</i>, schematisch gezeichnet werden. Der
+            Baum besteht aus einem Stamm und Zweigen, die jeweils links und
+            rechts symmetrisch angeordnet sind. Die Zweige bilden nach
+            Aufteilen der Strecke in zwei Hälften jeweils neue Stämme. Um
+            einen fraktalen Baum beliebiger Stufe \(n\) zu zeichnen, führt man
+            einen rekursiven Algorithmus aus. Z.B. sieht ein fraktaler Baum
+            der Tiefe \(n=7\) wie folgt aus:
+        </p>
+        <style>
+          canvas {
+            border: 1px solid black;
+          }
+          .turtleFeedback {
+            height: 350px;
+          }
+          .turtle {
+              float: left; 
+              left: 0; 
+              top: 300; 
+              height: 300px; 
+              width: 350px;
+          }
 
-<head>
-    <title>Fraktal-Baum</title>
-    <link rel="stylesheet" href="../parsons.css" />
-    <link rel="stylesheet" href="../lib/prettify.css" />
-    <script src="../lib/prettify.js"></script>
-    <meta charset="utf8" />
-</head>
+          @supports (-webkit-transform: scale(0.5)) {
+              .turtle {
+                  -webkit-transform: scale(0.5);
+                  -webkit-transform-origin: 0 0;
+              }
+          }
+        </style>
+        <div class="turtleFeedback", id="turtleFeedback">
+          <div class="model turtle">
+            <h3>Lösung</h3>
+            <canvas id="modelCanvas" width="600" height="600"></canvas>
+          </div>
+          <div class="student turtle">
+            <h3>Dein Ergebnis</h3>
+            <canvas id="studentCanvas" width="600" height="600"></canvas>
+          </div>
+        </div>
+        <div style="clear:both;"></div>
+        <p>Lösen Sie das Problem, indem Sie den nachfolgenden Python-Code in
+          die richtige Reihenfolge bringen. Beachten Sie, dass der Baum mit
+          dem Modul <TT>turtle</TT> gezeichnet wird und lediglich die
+          Funktion zum Zeichnen des Baumes implementiert werden muss.
+          Funktionen, die nicht näher spezifiziert sind, dürfen Sie als
+          gegeben annehmen.</p>
+  
+        <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
+          verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
+        <p>
+          <a href="#" id="newInstanceLink">Shuffle</a>
+          <a href="#" id="feedbackLink">Feeback erhalten</a>
+          <a href="#" id="refreshLink">Canvas zurücksetzen</a>
+        </p>
+        <div style="clear:both;"></div>
+        <div id="sortableTrash" class="sortable-code"></div>
+        <div id="sortable" class="sortable-code"></div>
+        <div id="unittest"></div>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+        <script src="../lib/underscore-min.js"></script>
+        <script src="../lib/lis.js"></script>
+        <script src="../parsons.js"></script>
+        <script src="../lib/skulpt.js"></script>
+        <script src="../lib/skulpt-stdlib.js"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script src="../util.js"></script>
+        <script>
+        $(document).ready(function(){
+          var initial = "def draw_tree(branch_length, level):\n" +
+                      "  if level > 0:\n" +
+                      "    myTurtle.forward(branch_length)\n" +
+                      "    myTurtle.right(45)\n" +
+                      "    draw_tree(branch_length / 2, level - 1)\n" +
+                      "    myTurtle.left(90)\n" +
+                      "    draw_tree(branch_length / 2, level - 1)\n" +
+                      "    myTurtle.right(45)\n" +
+                      "    myTurtle.backward(branch_length)\n" +
+                      "myTurtle.right(270)\n" +
+                      "myTurtle.backward(300)\n" +
+                      "draw_tree(300, 7)";
 
-<body>
-    <h2>Fraktal-Baum zeichnen</h2>
-    <p>Ein Baum kann als Fraktal, d.h. als grafisches Objekt mit
-        <i>Selbstähnlichkeit</i>, schematisch gezeichnet werden. Der
-        Baum besteht aus einem Stamm und Zweigen, die jeweils links und
-        rechts symmetrisch angeordnet sind. Die Zweige bilden nach
-        Aufteilen der Strecke in zwei Hälften jeweils neue Stämme. Um
-        einen fraktalen Baum beliebiger Stufe \(n\) zu zeichnen, führt man
-        einen rekursiven Algorithmus aus. Z.B. sieht ein fraktaler Baum
-        der Tiefe \(n=7\) wie folgt aus:
-    </p>
-
-    <img src = "../img/tree.svg" alt="Fraktal-Baum" width="417pt" height="590pt"/>
-
-    <p>Lösen Sie das Problem, indem Sie den nachfolgenden Python-Code in
-        die richtige Reihenfolge bringen. Beachten Sie, dass der Baum mit
-        dem Modul <TT>turtle</TT> gezeichnet wird und lediglich die
-        Funktion zum Zeichnen des Baumes implementiert werden muss.
-        Funktionen, die nicht näher spezifiziert sind, dürfen Sie als
-        gegeben annehmen.</p>
-
-    <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass ein lauffähiges Programm entsteht. Der Wert 
-        der Felder (<span class="jsparson-toggle"></span>) kann durch 
-        Klicken verändert werden.</p>
-    <div id="sortableTrash" class="sortable-code">
-        <p>Trash</p>
-    </div>
-    <div id="sortable" class="sortable-code">
-        <p>Solution</p>
-    </div>
-    <div style="clear:both;"></div>
-    <p>
-        <a href="#" id="newInstanceLink">Shuffle</a>
-        <a href="#" id="feedbackLink">Feeback erhalten</a>
-    </p>
-    <div id="unittest"></div>
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../lib/jquery-ui.min.js"></script>
-    <script src="../lib/jquery.ui.touch-punch.min.js"></script>
-    <script src="../lib/underscore-min.js"></script>
-    <script src="../lib/lis.js"></script>
-    <script src="../parsons.js"></script>
-    <script src="../lib/skulpt.js"></script>
-    <script src="../lib/skulpt-stdlib.js"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
-    <script>
-        var initial = "def draw_tree(branch_length, level):\n" +
-            "  if level > 0:\n" +
-            "    turtle.forward(branch_length)\n" +
-            "    turtle.right(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
-            "    draw_tree(branch_length / 2, level - 1)\n" +
-            "    turtle.left(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
-            "    draw_tree(branch_length / 2, level - 1)\n" +
-            "    turtle.right(<span class='jsparson-toggle' data-type='degree'></span>)\n" +
-            "    turtle.backward(branch_length)\n" +
-            "  else:\n" +
-            "    draw_blossom()\n"
-        var unittests = 'import unittestparson\n' +
-            'class myTests(unittestparson.unittest):\n' +
-            '  def testOne(self):\n' +
-            '    pass\n' +
-            '_test_result = myTests().main()';
-        $(document).ready(function () {
-            var parson = new ParsonsWidget({
+          // var initial = fileReader("./src/tree.plz");
+          
+          var parson;
+          Sk.canvas = "studentCanvas";
+            parson = new ParsonsWidget({
                 'sortableId': 'sortable',
                 'trashId': 'sortableTrash',
-                'unittests': unittests,
-                toggleTypeHandlers: { degree: ["30", "45", "60", "75", "90"] }
+                'max_wrong_lines': 1,
+                turtleModelCode: "def draw_tree(branch_length, level):\n" +
+                "  if level > 0:\n" +
+                "    modelTurtle.forward(branch_length)\n" +
+                "    modelTurtle.right(45)\n" +
+                "    draw_tree(branch_length / 2, level - 1)\n" +
+                "    modelTurtle.left(90)\n" +
+                "    draw_tree(branch_length / 2, level - 1)\n" +
+                "    modelTurtle.right(45)\n" +
+                "    modelTurtle.backward(branch_length)\n" +
+                "modelTurtle.right(270)\n" +
+                "modelTurtle.penup()\n" +
+                "modelTurtle.backward(300)\n" +
+                "modelTurtle.pendown()\n" +
+                "draw_tree(300, 7)",
+                'grader': ParsonsWidget._graders.TurtleGrader
+                // 'executable_code': "def draw_tree(branch_length, level):\n" +
+                // "if level > 0:\n" +
+                // "myTurtle.forward(branch_length)\n" +
+                // "myTurtle.right(45)\n" +
+                // "draw_tree(branch_length / 2, level - 1)\n" +
+                // "myTurtle.left(90)\n" +
+                // "draw_tree(branch_length / 2, level - 1)\n" +
+                // "myTurtle.right(45)\n" +
+                // "myTurtle.backward(branch_length)\n" +
+                // "myTurtle.right(270)\n" +
+                // "myTurtle.backward(300)\n" +
+                // "draw_tree(300, 7)"
+                // // 'programmingLang': "pseudo"
             });
             parson.init(initial);
             parson.shuffleLines();
-            $("#newInstanceLink").click(function (event) {
+            // parson.numbering();
+            $("#newInstanceLink").click(function(event){
                 event.preventDefault();
                 parson.shuffleLines();
             });
-            $("#feedbackLink").click(function (event) {
+            $("#feedbackLink").click(function(event){
                 event.preventDefault();
                 var fb = parson.getFeedback();
-                $("#unittest").html("<h2>Feedback vom Testen:</h2>" + fb.feedback);
-                if (fb.success) { alert("!"); }
+//                $("#unittest").html("<h2>Feedback from testing your program:</h2>" + fb.feedback);
+                if (fb.success) {
+                  alert("Aufgabe erfüllt!");
+                } else {
+                  alert("Die Lösung stimmt nicht mit der Demo überein.");
+                }
+            });
+            $("#refreshLink").click(function(event){
+                event.preventDefault();
+                console.log(parson._codelinesAsString());
+                // parson.numbering(toggle);
+                // toggle = !toggle
+                
+                // var oldcanv = document.getElementById('turtleFeedback').getElementById('modelCanvas');
+                // console.log(document.getElementById("turtleFeedback").children.item(0));
+                // document.getElementById("turtleFeedback").removeChild(document.getElementById("turtleFeedback").children.item(0));
+                // document.getElementById("turtleFeedback").appendChild(document.getElementById("turtleFeedback").children.item(0));
+                // document.removeChild(oldcanv);
+                // var canv = document.createElement('modelCanvas');
+                // canv.id = 'modelCanvas';
+                // document.body.appendChild(oldcanv);
             });
         });
-    </script>
-</body>
-
+        </script>
+    </body>
 </html>
