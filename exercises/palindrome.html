@@ -8,6 +8,7 @@
     <script src="../lib/prettify.js"></script>
     <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
     <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 
 <body>
@@ -22,35 +23,92 @@
         Eine Instanz benachbarter Basen kann vereinfacht wie folgt
         aussehen:</p>
     <script type="text/tikz">
-            \begin{tikzpicture}
-                \definecolor{magenta}{RGB}{148,103,189}
-                \definecolor{red}{RGB}{214,39,40}
-                \definecolor{green}{RGB}{44,160,44}
-                \definecolor{blue}{RGB}{31,119,180}
-
-                \fill[green] (0,0) rectangle (1,1);
-                \node at (0.5, 0.5) {A};
-
-                \fill[red] (1,0) rectangle (2,1);
-                \node at (1.5, 0.5) {C};
-
-                \fill[magenta] (2,0) rectangle (3,1);
-                \node at (2.5, 0.5) {T};
-
-                \fill[blue] (3,0) rectangle (4,1);
-                \node at (3.5, 0.5) {G};
-
-                \fill[magenta] (4,0) rectangle (5,1);
-                \node at (4.5, 0.5) {T};
-
-                \fill[red] (5,0) rectangle (6,1);
-                \node at (5.5, 0.5) {C};
-
-                \fill[green] (6,0) rectangle (7,1);
-                \node at (6.5, 0.5) {A};
-            \end{tikzpicture}
+        \begin{tikzpicture}
+        % Definiere die palindromische Sequenz
+        %\def\sequence{A B C D E D C B A}
+        \def\sequence{A C C G T G C C A}
+    
+        % Zeichne die Sequenz mit gefüllten Kreisen in Abhängigkeit von den Buchstaben
+        \foreach \i [count=\xi] in {X, C, T, A, G, X, X, C, T, A, G, X} {
+            % Wähle die Farbe basierend auf dem Buchstaben
+            \ifnum\xi=1
+                \def\colorfill{lightgray!40}   % X -> grau
+            \else\ifnum\xi=2
+                \def\colorfill{green!40} % C -> grün
+            \else\ifnum\xi=3
+                \def\colorfill{blue!40}  % T -> blau
+            \else\ifnum\xi=4
+                \def\colorfill{red!40}   % A -> rot
+            \else\ifnum\xi=5
+                \def\colorfill{yellow!40}   % G -> gelb
+            \else\ifnum\xi=6
+                \def\colorfill{lightgray!40}   % X -> grau
+            \else\ifnum\xi=7
+                \def\colorfill{lightgray!40}   % X -> grau
+            \else\ifnum\xi=8
+                \def\colorfill{green!40} % C -> grün
+            \else\ifnum\xi=9
+                \def\colorfill{blue!40}  % T -> blau
+            \else\ifnum\xi=10
+                \def\colorfill{red!40}   % A -> rot
+            \else\ifnum\xi=11
+                \def\colorfill{yellow!40}   % G -> gelb
+            \else\ifnum\xi=12
+                \def\colorfill{lightgray!40}   % X -> grau
+            \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    
+            % Zeichne den gefüllten Kreis mit dem Buchstaben
+            \fill[\colorfill] (\xi, 0) circle (0.5); % Gefüllte Farbe
+            \draw[thick] (\xi, 0) circle (0.5); % Kreisrand
+            \node at (\xi, 0) {\i};
+        }
+    
+        \foreach \i [count=\xi] in {X, G, A, T, C, X, X, G, A, T, C, X} {
+            % Wähle die Farbe basierend auf dem Buchstaben
+            \ifnum\xi=1
+                \def\colorfill{lightgray!40}   % X -> grau
+            \else\ifnum\xi=2
+                \def\colorfill{yellow!40}  % G -> gelb
+            \else\ifnum\xi=3
+                \def\colorfill{red!40} % A -> rot
+            \else\ifnum\xi=4
+                \def\colorfill{blue!40}   % T -> blau
+            \else\ifnum\xi=5
+                \def\colorfill{green!40}   % C -> grün
+            \else\ifnum\xi=6
+                \def\colorfill{lightgray!40}   % X -> grau
+            \else\ifnum\xi=7
+                \def\colorfill{lightgray!40}   % X -> grau
+             \else\ifnum\xi=8
+                \def\colorfill{yellow!40}  % G -> gelb
+            \else\ifnum\xi=9
+                \def\colorfill{red!40} % A -> rot
+            \else\ifnum\xi=10
+                \def\colorfill{blue!40}   % T -> blau
+            \else\ifnum\xi=11
+                \def\colorfill{green!40}   % C -> grün
+            \else\ifnum\xi=12
+                \def\colorfill{lightgray!40}   % X -> grau
+            \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    
+            % Zeichne den gefüllten Kreis mit dem Buchstaben
+            \fill[\colorfill] (\xi, -1) circle (0.5); % Gefüllte Farbe
+            \draw[thick] (\xi, -1) circle (0.5); % Kreisrand
+            \node at (\xi, -1) {\i};
+        }
+        \draw[thick, ->] (2, 1) -- (4, 1);
+        \draw[thick, ->] (11, -2) -- (9, -2);
+        \node at (0, -0.5) {\(\dots\)};
+        \node at (13, -0.5) {\(\dots\)};
+    
+        % Optional: Verbinde die Elemente mit Linien
+        %\foreach \x in {1, 2, 3, 4, 5} {
+        %    \draw[->] (\x, 0.5) -- (\x, -0.5);
+        %}
+    
+        \end{tikzpicture}
         </script>
-    <p><strong>Note:</strong> Die Puzzleteile müssen per Drag&Drop
+    <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
         verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
@@ -67,7 +125,8 @@
     <script src="../lib/lis.js"></script>
     <script src="../parsons.js"></script>
     <script>
-        var initial = 'def is_palindrome(sequence, left, right):\n' +
+        var initial = '# Palindrome detection\\n' + 
+            'def is_palindrome(sequence, left, right):\n' +
             '  if left >= right:\n' +
             '    return True\n' +
             '  if sequence[left] != sequence[right]:\n' +
