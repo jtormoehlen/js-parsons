@@ -1379,15 +1379,22 @@
   };
 
 
-  ParsonsWidget.prototype.codeLineToHTML = function (codeline) {
+  ParsonsWidget.prototype.codeLineToHTML = function (codeline, lineNumber) {
+    let tabDelta = codeline.code.length;
+    let tabFac = '';
+    for (let i = tabDelta; i < 75; i++) {
+      tabFac += ' ';
+    }
+    tabFac += '# ';
     return '<li id="' + codeline.id + '" class="prettyprint lang-py">' + codeline.code + '<\/li>';
   };
 
   ParsonsWidget.prototype.codeLinesToHTML = function (codelineIDs, destinationID) {
+    var lineNumber = 0;
     var lineHTML = [];
     for (var id in codelineIDs) {
       var line = this.getLineById(codelineIDs[id]);
-      lineHTML.push(this.codeLineToHTML(line));
+      lineHTML.push(this.codeLineToHTML(line, ++lineNumber));
     }
     return '<ul id="ul-' + destinationID + '">' + lineHTML.join('') + '</ul>';
   };
@@ -1465,14 +1472,26 @@
   };
 
   /**
-   * Numbering for consecutive lines
-   * toggle numbering state with @var isNumbered
+   * Print code lines to console
+   * 
    * @author jtormoehlen
    */
-  ParsonsWidget.prototype.numbering = function (isNumbered) {
+  ParsonsWidget.prototype.logCode = function () {
+    console.log(this.modified_lines)
+  };
+
+  /**
+   * Numbering for consecutive lines
+   * 
+   * Toggle numbering state with @var isNumbered
+   * 
+   * @author jtormoehlen
+   */
+  ParsonsWidget.prototype.lineNumbers = function (isNumbered) {
     function insertNumbering(line, number) {
       // Generate prefix based on current line number
       const prefix = `${number} | `;
+      // const prefix = `  # ${number}`;
       // number++;
       // Recombine prefix and original code
       return prefix + line;
@@ -1481,25 +1500,21 @@
     function removeNumbering(line) {
       //Search for index of ' | '
       const prefixIndex = line.indexOf(' | ');
-      
       // Cut off prefix if existent
       if (prefixIndex !== -1) {
           // Skip position with '_|_' (+3)
           return line.substring(prefixIndex + 3);
       }
-
       return line;
     }
 
-    if (!isNumbered) {
+    if (isNumbered) {
       for (let i = 0; i < this.modified_lines.length; i++) {
         this.modified_lines[i].code = insertNumbering(this.modified_lines[i].code, i);
-        console.log(this.modified_lines[i].code)
       }
     } else {
       for (let i = 0; i < this.modified_lines.length; i++) {
         this.modified_lines[i].code = removeNumbering(this.modified_lines[i].code);
-        console.log(this.modified_lines[i].code)
       }
     }
   }

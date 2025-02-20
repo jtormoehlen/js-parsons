@@ -1,5 +1,6 @@
 # folder contains executable algorithms as raw strings
 src/
+alt/
 
 # old versions
 /exercises/palindrome_alt.html
