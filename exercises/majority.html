@@ -75,47 +75,88 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
-        var initial = 'def maj_elem(arr, left, right):\n' +
-            '  if left == right:\n' +
-            '    return arr[left]\n' +
-            '  mid = (left + right) // 2\n' +
-            '  maj_left = maj_elem(arr, left, mid)\n' +
-            '  maj_right = maj_elem(arr, mid + 1, right)\n' +
-            '  if maj_left == maj_right:\n' +
-            '    return maj_left\n' +
-            '  else: #distractor\n' +
-            '  count_left = sum(1 for i in range(left, right + 1) if arr[i] == maj_left)\n' +
-            '  count_right = sum(1 for i in range(left, right + 1) if arr[i] == maj_right)\n' +
-            '  if count_left > (right - left + 1) // 2:\n' +
-            '    return maj_left\n' +
-            '  elif count_right > (right - left + 1) // 2:\n' +
-            '    return maj_right\n' +
-            '  else:\n' +
-            '    return None\n'
 
-        var unittests = 'import unittestparson\n' +
-            'class myTests(unittestparson.unittest):\n' +
-            '  def testOne(self):\n' +
-            '    self.assertEqual(maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6),3,' +
-            '      "Calling function <code>maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6)</code>.")\n' +
-            '    self.assertEqual(maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6),None,' +
-            '      "Calling function <code>maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6)</code>.")\n' +
-            '_test_result = myTests().main()';
-
-        // function displayErrors(fb) {
-        //     if (fb.errors.length > 0) {
-        //         alert(fb.errors[0]);
-        //     }
-        // }
-
+        function displayErrors(fb) {
+            if (fb.errors.length > 0) {
+                alert(fb.errors[0]);
+            }
+        }
+        
         $(document).ready(function () {
+
+            var initial = "def maj_elem(numbers, left, right):\n" +
+                "    if left == right:\n" +
+                "        return numbers[left]\n" +
+                "    mid = (left + right) // 2\n" +
+                "    maj_left = maj_elem(numbers, left, mid)\n" +
+                "    maj_right = maj_elem(numbers, mid + 1, right)\n" +
+                "    if maj_left == maj_right:\n" +
+                "        return maj_left\n" +
+                "    count_left = sum(1 for i in range(left, right + 1) if numbers[i] == maj_left)\n" +
+                "    count_right = sum(1 for i in range(left, right + 1) if numbers[i] == maj_right)\n" +
+                "    if count_left &gt; (right - left + 1) // 2:\n" +
+                "        return maj_left\n" +
+                "    elif count_right &gt; (right - left + 1) // 2:\n" +
+                "        return maj_right\n" +
+                "    else:\n" +
+                "        return None\n" +
+                "if left &gt;= right: #distractor\n" +
+                "return None #distractor\n" +
+                "maj_elem(numbers, left, mid) #distractor\n" +
+                "maj_elem(numbers, mid + 1, right) #distractor\n" +
+                "if maj_left != maj_right: #distractor\n" +
+                "return None #distractor";
             var parson = new ParsonsWidget({
-                'sortableId': 'sortable',
-                'trashId': 'sortableTrash',
-                // 'max_wrong_lines': 1,
-                // 'feedback_cb': displayErrors,
-                'unittests': unittests
+                "sortableId": "sortable",
+                "max_wrong_lines": 6,
+                "grader": ParsonsWidget._graders.UnitTestGrader,
+                "exec_limit": 2500,
+                "can_indent": true,
+                "x_indent": 50,
+                "lang": "de",
+                "show_feedback": true,
+                "trashId": "sortableTrash",
+                "unittests": "import unittestparson\nclass myTests(unittestparson.unittest):\n  def test_0(self):\n    self.assertEqual(maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6),3,)\n    self.assertEqual(maj_elem([5, 5, 5, 1, 5, 5], 0, 5),5,)\n    self.assertEqual(maj_elem([42], 0, 0),42,)\n  def test_1(self):\n    self.assertEqual(maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6),None,)\n_test_result = myTests().main()"
             });
+
+            // self.assertEqual(maj_elem([], 0, 0),None,)\n
+
+            // Legacy version
+            // var initial = 'def maj_elem(arr, left, right):\n' +
+            //     '  if left == right:\n' +
+            //     '    return arr[left]\n' +
+            //     '  mid = (left + right) // 2\n' +
+            //     '  maj_left = maj_elem(arr, left, mid)\n' +
+            //     '  maj_right = maj_elem(arr, mid + 1, right)\n' +
+            //     '  if maj_left == maj_right:\n' +
+            //     '    return maj_left\n' +
+            //     '  else: #distractor\n' +
+            //     '  count_left = sum(1 for i in range(left, right + 1) if arr[i] == maj_left)\n' +
+            //     '  count_right = sum(1 for i in range(left, right + 1) if arr[i] == maj_right)\n' +
+            //     '  if count_left > (right - left + 1) // 2:\n' +
+            //     '    return maj_left\n' +
+            //     '  elif count_right > (right - left + 1) // 2:\n' +
+            //     '    return maj_right\n' +
+            //     '  else:\n' +
+            //     '    return None\n';
+
+            // var unittests = 'import unittestparson\n' +
+            //     'class myTests(unittestparson.unittest):\n' +
+            //     '  def testOne(self):\n' +
+            //     '    self.assertEqual(maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6),3,' +
+            //     '      "Calling function <code>maj_elem([3, 3, 4, 3, 4, 3, 3], 0, 6)</code>.")\n' +
+            //     '    self.assertEqual(maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6),None,' +
+            //     '      "Calling function <code>maj_elem([1, 2, 3, 4, 5, 6, 7], 0, 6)</code>.")\n' +
+            //     '_test_result = myTests().main()';
+
+            // var parson = new ParsonsWidget({
+            //     'sortableId': 'sortable',
+            //     'trashId': 'sortableTrash',
+            //     'max_wrong_lines': 1,
+            //     'feedback_cb': displayErrors,
+            //     'unittests': unittests
+            // });
+
             parson.init(initial);
             parson.shuffleLines();
             $("#newInstanceLink").click(function (event) {

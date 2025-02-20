@@ -27,85 +27,87 @@
         % Definiere die palindromische Sequenz
         %\def\sequence{A B C D E D C B A}
         \def\sequence{A C C G T G C C A}
-    
+
         % Zeichne die Sequenz mit gefüllten Kreisen in Abhängigkeit von den Buchstaben
         \foreach \i [count=\xi] in {X, C, T, A, G, X, X, C, T, A, G, X} {
-            % Wähle die Farbe basierend auf dem Buchstaben
-            \ifnum\xi=1
-                \def\colorfill{lightgray!40}   % X -> grau
-            \else\ifnum\xi=2
-                \def\colorfill{green!40} % C -> grün
-            \else\ifnum\xi=3
-                \def\colorfill{blue!40}  % T -> blau
-            \else\ifnum\xi=4
-                \def\colorfill{red!40}   % A -> rot
-            \else\ifnum\xi=5
-                \def\colorfill{yellow!40}   % G -> gelb
-            \else\ifnum\xi=6
-                \def\colorfill{lightgray!40}   % X -> grau
-            \else\ifnum\xi=7
-                \def\colorfill{lightgray!40}   % X -> grau
-            \else\ifnum\xi=8
-                \def\colorfill{green!40} % C -> grün
-            \else\ifnum\xi=9
-                \def\colorfill{blue!40}  % T -> blau
-            \else\ifnum\xi=10
-                \def\colorfill{red!40}   % A -> rot
-            \else\ifnum\xi=11
-                \def\colorfill{yellow!40}   % G -> gelb
-            \else\ifnum\xi=12
-                \def\colorfill{lightgray!40}   % X -> grau
-            \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
-    
-            % Zeichne den gefüllten Kreis mit dem Buchstaben
-            \fill[\colorfill] (\xi, 0) circle (0.5); % Gefüllte Farbe
-            \draw[thick] (\xi, 0) circle (0.5); % Kreisrand
-            \node at (\xi, 0) {\i};
+        % Wähle die Farbe basierend auf dem Buchstaben
+        \ifnum\xi=1
+            \def\colorfill{lightgray!40}   % X -> grau
+        \else\ifnum\xi=2
+            \def\colorfill{green!40} % C -> grün
+        \else\ifnum\xi=3
+            \def\colorfill{blue!40}  % T -> blau
+        \else\ifnum\xi=4
+            \def\colorfill{red!40}   % A -> rot
+        \else\ifnum\xi=5
+            \def\colorfill{yellow!40}   % G -> gelb
+        \else\ifnum\xi=6
+            \def\colorfill{lightgray!40}   % X -> grau
+        \else\ifnum\xi=7
+            \def\colorfill{lightgray!40}   % X -> grau
+        \else\ifnum\xi=8
+            \def\colorfill{green!40} % C -> grün
+        \else\ifnum\xi=9
+            \def\colorfill{blue!40}  % T -> blau
+        \else\ifnum\xi=10
+            \def\colorfill{red!40}   % A -> rot
+        \else\ifnum\xi=11
+            \def\colorfill{yellow!40}   % G -> gelb
+        \else\ifnum\xi=12
+            \def\colorfill{lightgray!40}   % X -> grau
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+        % Zeichne den gefüllten Kreis mit dem Buchstaben
+        \fill[\colorfill] (\xi, 0) circle (0.5); % Gefüllte Farbe
+        \draw[thick] (\xi, 0) circle (0.5); % Kreisrand
+        \node at (\xi, 0) {\i};
         }
-    
+
         \foreach \i [count=\xi] in {X, G, A, T, C, X, X, G, A, T, C, X} {
-            % Wähle die Farbe basierend auf dem Buchstaben
-            \ifnum\xi=1
-                \def\colorfill{lightgray!40}   % X -> grau
-            \else\ifnum\xi=2
-                \def\colorfill{yellow!40}  % G -> gelb
-            \else\ifnum\xi=3
-                \def\colorfill{red!40} % A -> rot
-            \else\ifnum\xi=4
-                \def\colorfill{blue!40}   % T -> blau
-            \else\ifnum\xi=5
-                \def\colorfill{green!40}   % C -> grün
-            \else\ifnum\xi=6
-                \def\colorfill{lightgray!40}   % X -> grau
-            \else\ifnum\xi=7
-                \def\colorfill{lightgray!40}   % X -> grau
-             \else\ifnum\xi=8
-                \def\colorfill{yellow!40}  % G -> gelb
-            \else\ifnum\xi=9
-                \def\colorfill{red!40} % A -> rot
-            \else\ifnum\xi=10
-                \def\colorfill{blue!40}   % T -> blau
-            \else\ifnum\xi=11
-                \def\colorfill{green!40}   % C -> grün
-            \else\ifnum\xi=12
-                \def\colorfill{lightgray!40}   % X -> grau
-            \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
-    
-            % Zeichne den gefüllten Kreis mit dem Buchstaben
-            \fill[\colorfill] (\xi, -1) circle (0.5); % Gefüllte Farbe
-            \draw[thick] (\xi, -1) circle (0.5); % Kreisrand
-            \node at (\xi, -1) {\i};
+        % Wähle die Farbe basierend auf dem Buchstaben
+        \ifnum\xi=1
+            \def\colorfill{lightgray!40}   % X -> grau
+        \else\ifnum\xi=2
+            \def\colorfill{yellow!40}  % G -> gelb
+        \else\ifnum\xi=3
+            \def\colorfill{red!40} % A -> rot
+        \else\ifnum\xi=4
+            \def\colorfill{blue!40}   % T -> blau
+        \else\ifnum\xi=5
+            \def\colorfill{green!40}   % C -> grün
+        \else\ifnum\xi=6
+            \def\colorfill{lightgray!40}   % X -> grau
+        \else\ifnum\xi=7
+            \def\colorfill{lightgray!40}   % X -> grau
+         \else\ifnum\xi=8
+            \def\colorfill{yellow!40}  % G -> gelb
+        \else\ifnum\xi=9
+            \def\colorfill{red!40} % A -> rot
+        \else\ifnum\xi=10
+            \def\colorfill{blue!40}   % T -> blau
+        \else\ifnum\xi=11
+            \def\colorfill{green!40}   % C -> grün
+        \else\ifnum\xi=12
+            \def\colorfill{lightgray!40}   % X -> grau
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+
+        % Zeichne den gefüllten Kreis mit dem Buchstaben
+        \fill[\colorfill] (\xi, -1) circle (0.5); % Gefüllte Farbe
+        \draw[thick] (\xi, -1) circle (0.5); % Kreisrand
+        \node at (\xi, -1) {\i};
         }
-        \draw[thick, ->] (2, 1) -- (4, 1);
-        \draw[thick, ->] (11, -2) -- (9, -2);
-        \node at (0, -0.5) {\(\dots\)};
-        \node at (13, -0.5) {\(\dots\)};
-    
+        \draw[very thick, ->] (2, 1) -- (4, 1);
+        \draw[very thick, ->] (5, -2) -- (3, -2);
+        \draw[very thick, ->] (8, 1) -- (10, 1);
+        \draw[very thick, ->] (11, -2) -- (9, -2);
+        \node at (0, -0.5) {$\dots$};
+        \node at (13, -0.5) {$\dots$};
+
         % Optional: Verbinde die Elemente mit Linien
         %\foreach \x in {1, 2, 3, 4, 5} {
         %    \draw[->] (\x, 0.5) -- (\x, -0.5);
         %}
-    
+
         \end{tikzpicture}
         </script>
     <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
@@ -125,14 +127,6 @@
     <script src="../lib/lis.js"></script>
     <script src="../parsons.js"></script>
     <script>
-        var initial = '# Palindrome detection\\n' + 
-            'def is_palindrome(sequence, left, right):\n' +
-            '  if left >= right:\n' +
-            '    return True\n' +
-            '  if sequence[left] != sequence[right]:\n' +
-            '    return False\n' +
-            '  return false #distractor\n' +
-            '  return is_palindrome(sequence, left + 1, right - 1)\n'
 
         function displayErrors(fb) {
             if (fb.errors.length > 0) {
@@ -141,14 +135,67 @@
         }
 
         $(document).ready(function () {
+
+            var initial = "def is_palindromic(seq):\n" +
+                "    return seq == get_compl(seq[::-1])\n" +
+                "def longest_palindrome(dna, start, end, longest_seq=&#039;&#039;):\n" +
+                "    if start &gt;= end:\n" +
+                "        return longest_seq\n" +
+                "    for length in range(2, end - start + 1):\n" +
+                "        subseq = dna[start:start + length]\n" +
+                "        if is_palindromic(subseq):\n" +
+                "            if len(subseq) &gt; len(longest_seq):\n" +
+                "                longest_seq = subseq\n" +
+                "    return longest_palindrome(dna, start + 1, end, longest_seq)\n" +
+                "return seq == seq[::-1] #distractor\n" +
+                "if start &lt; end: #distractor\n" +
+                "return &#039;&#039; #distractor\n" +
+                "subseq = dna[start:length] #distractor\n" +
+                "return subseq #distractor\n" +
+                "return longest_palindrome(dna, start + 1, end - 1, longest_seq) #distractor";
             var parson = new ParsonsWidget({
-                'sortableId': 'sortable',
-                'trashId': 'sortableTrash',
-                'max_wrong_lines': 1,
-                'feedback_cb': displayErrors
+                "sortableId": "sortable",
+                "max_wrong_lines": 6,
+                "grader": ParsonsWidget._graders.LineBasedGrader,
+                "exec_limit": 2500,
+                "can_indent": true,
+                "x_indent": 50,
+                "lang": "de",
+                "show_feedback": true,
+                "trashId": "sortableTrash"
             });
+
+            // Legacy version
+            // var initial = "def longest_palindrome(dna, start, end, longest_seq=''): # 13\n" +
+            //     "    if start >= end:                                  # 12\n" +
+            //     "        return longest_seq                                # 4\n" +
+            //     "    for length in range(2, end - start + 1):          # 1\n" +
+            //     "        subseq = dna[start:start + length]                # 2\n" +
+            //     "        compl = get_compl(subseq)                         # 5\n" +
+            //     "        if is_palindromic(subseq) or subseq == compl:     # 3\n" +
+            //     "            if len(subseq) > len(longest_seq):                # 9\n" +
+            //     "                longest_seq = subseq                              # 11\n" +
+            //     "    return longest_palindrome(dna, start + 1, end, longest_seq) # 7\n" +
+            //     "else: return None                               # 10 #distractor\n" +
+            //     "if start == end:                                # 8 #distractor\n" +
+            //     "subseq = dna[start:length]                      # 6 #distractor\n";
+
+            // var parson = new ParsonsWidget({
+            //     "sortableId": "sortable",
+            //     "max_wrong_lines": 3,
+            //     "grader": ParsonsWidget._graders.LineBasedGrader,
+            //     "exec_limit": 2500,
+            //     "can_indent": true,
+            //     "x_indent": 50,
+            //     "lang": "de",
+            //     "show_feedback": true,
+            //     "trashId": "sortableTrash",
+            //     "feedback_cb": displayErrors
+            // });
+
             parson.init(initial);
             parson.shuffleLines();
+            // parson.numbering(true);
             $("#newInstanceLink").click(function (event) {
                 event.preventDefault();
                 parson.shuffleLines();
@@ -156,6 +203,7 @@
             $("#feedbackLink").click(function (event) {
                 event.preventDefault();
                 parson.getFeedback();
+                parson.updateNumbers();
             });
         });
     </script>

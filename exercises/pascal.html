@@ -88,21 +88,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
-        var initial = 'def binom(i, j):\n' +
-            '  if j == 0 or j == i:\n' +
-            '    return 1\n' +
-            '  else:\n' +
-            '    return binom(i-1, j-1) + binom(i-1, j)\n' +
-            'def sum_rec(numbers):\n' +
-            '  if not numbers\n' +
-            '    return 0\n' +
-            '  else:\n' +
-            '    return numbers[0] + sum_rec(numbers[1:])\n' +
-            'inner_sum = int()\n' +
-            'for i in range(2, n):\n' +
-            '  inner_sum += sum_rec([binom(i, j) for i in range(1, j)])\n' +
-            '  numbers = numbers[1:-1] #distractor\n';
-
+    
         function displayErrors(fb) {
             if (fb.errors.length > 0) {
                 alert(fb.errors[0]);
@@ -110,12 +96,39 @@
         }
 
         $(document).ready(function () {
+
+            var initial = "def binom(i, j):\n" +
+                "    if j == 0 or j == i:\n" +
+                "        return 1\n" +
+                "    else:\n" +
+                "        return binom(i-1, j-1) + binom(i-1, j)\n" +
+                "def rec_sum(numbers):\n" +
+                "    if not numbers:\n" +
+                "        return 0\n" +
+                "    else:\n" +
+                "        return numbers[0] + rec_sum(numbers[1:])\n" +
+                "total_sum = int()\n" +
+                "for i in range(2, n):\n" +
+                "    total_sum += rec_sum([binom(i, j) for j in range(1, i)])\n" +
+                "if i == 0 or i == j: #distractor\n" +
+                "return binom(i, j-1) + binom(i-1, j-1) #distractor\n" +
+                "if numbers: #distractor\n" +
+                "return numbers[0] + numbers[-1] + rec_sum(numbers[1:-1]) #distractor\n" +
+                "for j in range(2, n): #distractor\n" +
+                "total_sum += rec_sum([binom(i, j) for i in range(1, j)]) #distractor\n" +
+                "numbers = numbers[1:-1] #distractor";
             var parson = new ParsonsWidget({
-                'sortableId': 'sortable',
-                'trashId': 'sortableTrash',
-                'max_wrong_lines': 1,
-                'feedback_cb': displayErrors
+                "sortableId": "sortable",
+                "max_wrong_lines": 7,
+                "grader": ParsonsWidget._graders.LineBasedGrader,
+                "exec_limit": 2500,
+                "can_indent": true,
+                "x_indent": 50,
+                "lang": "de",
+                "show_feedback": true,
+                "trashId": "sortableTrash"
             });
+
             parson.init(initial);
             parson.shuffleLines();
             $("#newInstanceLink").click(function (event) {

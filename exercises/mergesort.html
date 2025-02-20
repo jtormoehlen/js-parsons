@@ -63,61 +63,101 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
-        var initial = 'def mergesort(numbers):\n' +
-            '  mid = len(numbers) // 2\n' +
-            '  if len(numbers) < 2:\n' +
-            '    return numbers\n' +
-            '  left = list(numbers[:mid])\n' +
-            '  right = list(numbers[mid:])\n' +
-            '  left = mergesort(left)\n' +
-            '  right = mergesort(right)\n' +
-            '  return merge(left, right)\n' +
-            'def merge(left, right):\n' +
-            '  merged = []\n' +
-            '  i, j = 0, 0\n' +
-            '  while i < len(left) and j < len(right):\n' +
-            '    if left[i] <= right[j]:\n' +
-            '      merged.append(left[i])\n' +
-            '      i += 1\n' +
-            '    else:\n' +
-            '      merged.append(right[j])\n' +
-            '      j += 1\n' +
-            '  merged.extend(left[i:])\n' +
-            '  merged.extend(right[j:])\n' +
-            '  return merged\n'
 
-        var unittests = 'import unittestparson\n' +
-            'class myTests(unittestparson.unittest):\n' +
-            '  def testOne(self):\n' +
-            '    self.assertEqual(mergesort([7, 6, 5, 4, 3, 2, 1]), [1, 2, 3, 4, 5, 6, 7],' +
-            '      "Calling function <code>mergesort([7, 6, 5, 4, 3, 2, 1])</code>.")\n' +
-            '    self.assertEqual(mergesort([21, 33, 56, 2, 60, 98, 59]), [2, 21, 33, 56, 59, 60, 98],' +
-            '      "Calling function <code>mergesort([21, 33, 56, 2, 60, 98, 59])</code>.")\n' +
-            '    self.assertEqual(mergesort([1, 1, 1, 1, 1, 1, 1]),[1, 1, 1, 1, 1, 1, 1],' +
-            '      "Calling function <code>mergesort([1, 1, 1, 1, 1, 1, 1])</code>.")\n' +
-            '  def testTwo(self):\n' +
-            '    self.assertEqual(mergesort([2, 2, 2, 1, 2, 2, 2]),[1, 2, 2, 2, 2, 2, 2],' +
-            '      "Calling function <code>mergesort([2, 2, 2, 1, 2, 2, 2])</code>.")\n' +
-            '    self.assertEqual(mergesort([]),[],' +
-            '      "Calling function <code>mergesort([])</code>.")\n' +
-            '    self.assertEqual(mergesort([1]),[1],' +
-            '      "Calling function <code>mergesort([1])</code>.")\n' +
-            '_test_result = myTests().main()';
-
-        // function displayErrors(fb) {
-        //     if (fb.errors.length > 0) {
-        //         alert(fb.errors[0]);
-        //     }
-        // }
+        function displayErrors(fb) {
+            if (fb.errors.length > 0) {
+                alert(fb.errors[0]);
+            }
+        }
 
         $(document).ready(function () {
+            
+            var initial = "def mergesort(numbers):\n" +
+                "    mid = len(numbers) // 2\n" +
+                "    if len(numbers) &lt; 2:\n" +
+                "        return numbers\n" +
+                "    left = list(numbers[:mid])\n" +
+                "    right = list(numbers[mid:])\n" +
+                "    left = mergesort(left)\n" +
+                "    right = mergesort(right)\n" +
+                "    return merge(left, right)\n" +
+                "def merge(left, right):\n" +
+                "    merged = []\n" +
+                "    i, j = 0, 0\n" +
+                "    while i &lt; len(left) and j &lt; len(right):\n" +
+                "        if left[i] &lt;= right[j]:\n" +
+                "            merged.append(left[i])\n" +
+                "            i += 1\n" +
+                "        else:\n" +
+                "            merged.append(right[j])\n" +
+                "            j += 1\n" +
+                "    merged.extend(left[i:])\n" +
+                "    merged.extend(right[j:])\n" +
+                "    return merged\n" +
+                "mid = len(numbers) / 2 #distractor\n" +
+                "if len(numbers) == 0: #distractor\n" +
+                "return None #distractor\n" +
+                "mergesort(left) #distractor\n" +
+                "mergesort(right) #distractor\n" +
+                "merge(left, right) #distractor\n" +
+                "merged.append(left.pop(0)) #distractor\n" +
+                "merged.append(right.pop(0)) #distractor";
             var parson = new ParsonsWidget({
-                'sortableId': 'sortable',
-                'trashId': 'sortableTrash',
-                // 'max_wrong_lines': 1,
-                // 'feedback_cb': displayErrors,
-                'unittests': unittests
+                "sortableId": "sortable",
+                "max_wrong_lines": 8,
+                "grader": ParsonsWidget._graders.UnitTestGrader,
+                "exec_limit": 2500,
+                "can_indent": true,
+                "x_indent": 50,
+                "lang": "de",
+                "show_feedback": true,
+                "trashId": "sortableTrash",
+                "unittests": "import unittestparson\nclass myTests(unittestparson.unittest):\n  def test_0(self):\n    self.assertEqual(mergesort([7, 6, 5, 4, 3, 2, 1]),[1, 2, 3, 4, 5, 6, 7],)\n    self.assertEqual(mergesort([21, 33, 56, 2, 60, 98, 59]),[2, 21, 33, 56, 59, 60, 98],)\n    self.assertEqual(mergesort([1, 1, 1, 1, 1, 1, 1]),[1, 1, 1, 1, 1, 1, 1],)\n  def test_1(self):\n    self.assertEqual(mergesort([2, 2, 2, 1, 2, 2]),[1, 2, 2, 2, 2, 2],)\n    self.assertEqual(mergesort([]),[],)\n    self.assertEqual(mergesort([1]),[1],)\n_test_result = myTests().main()"
             });
+
+            // Legacy version
+            // var initial = 'def mergesort(numbers):\n' +
+            // '  mid = len(numbers) // 2\n' +
+            // '  if len(numbers) < 2:\n' +
+            // '    return numbers\n' +
+            // '  left = list(numbers[:mid])\n' +
+            // '  right = list(numbers[mid:])\n' +
+            // '  left = mergesort(left)\n' +
+            // '  right = mergesort(right)\n' +
+            // '  return merge(left, right)\n' +
+            // 'def merge(left, right):\n' +
+            // '  merged = []\n' +
+            // '  i, j = 0, 0\n' +
+            // '  while i < len(left) and j < len(right):\n' +
+            // '    if left[i] <= right[j]:\n' +
+            // '      merged.append(left[i])\n' +
+            // '      i += 1\n' +
+            // '    else:\n' +
+            // '      merged.append(right[j])\n' +
+            // '      j += 1\n' +
+            // '  merged.extend(left[i:])\n' +
+            // '  merged.extend(right[j:])\n' +
+            // '  return merged\n' +
+            // 'return None #distractor';
+
+            // var unittests = 'import unittestparson\n' +
+            //     'class myTests(unittestparson.unittest):\n' +
+            //     '  def testOne(self):\n' +
+            //     '    self.assertEqual(mergesort([7, 6, 5, 4, 3, 2, 1]), [1, 2, 3, 4, 5, 6, 7],' +
+            //     '      "Calling function <code>mergesort([7, 6, 5, 4, 3, 2, 1])</code>.")\n' +
+            //     '    self.assertEqual(mergesort([21, 33, 56, 2, 60, 98, 59]), [2, 21, 33, 56, 59, 60, 98],' +
+            //     '      "Calling function <code>mergesort([21, 33, 56, 2, 60, 98, 59])</code>.")\n' +
+            //     '    self.assertEqual(mergesort([1, 1, 1, 1, 1, 1, 1]),[1, 1, 1, 1, 1, 1, 1],' +
+            //     '      "Calling function <code>mergesort([1, 1, 1, 1, 1, 1, 1])</code>.")\n' +
+            //     '  def testTwo(self):\n' +
+            //     '    self.assertEqual(mergesort([2, 2, 2, 1, 2, 2, 2]),[1, 2, 2, 2, 2, 2, 2],' +
+            //     '      "Calling function <code>mergesort([2, 2, 2, 1, 2, 2, 2])</code>.")\n' +
+            //     '    self.assertEqual(mergesort([]),[],' +
+            //     '      "Calling function <code>mergesort([])</code>.")\n' +
+            //     '    self.assertEqual(mergesort([1]),[1],' +
+            //     '      "Calling function <code>mergesort([1])</code>.")\n' +
+            //     '_test_result = myTests().main()';
+
             parson.init(initial);
             parson.shuffleLines();
             $("#newInstanceLink").click(function (event) {
@@ -127,7 +167,7 @@
             $("#feedbackLink").click(function (event) {
                 event.preventDefault();
                 var fb = parson.getFeedback();
-                $("#jsparson").html("<h2>Feedback vom Test:</h2>" +
+                $("#jsparson").html("<h2>Test-Feedback:</h2>" +
                     fb.feedback);
                 if (fb.success) { alert("Programm korrekt."); }
             });

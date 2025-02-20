@@ -80,60 +80,99 @@
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
         <script src="../util.js"></script>
         <script>
+        
         $(document).ready(function(){
-          var initial = "def draw_tree(branch_length, level):\n" +
-                      "  if level > 0:\n" +
-                      "    myTurtle.forward(branch_length)\n" +
-                      "    myTurtle.right(45)\n" +
-                      "    draw_tree(branch_length / 2, level - 1)\n" +
-                      "    myTurtle.left(90)\n" +
-                      "    draw_tree(branch_length / 2, level - 1)\n" +
-                      "    myTurtle.right(45)\n" +
-                      "    myTurtle.backward(branch_length)\n" +
-                      "myTurtle.right(270)\n" +
-                      "myTurtle.backward(300)\n" +
-                      "draw_tree(300, 7)";
 
-          // var initial = fileReader("./src/tree.plz");
+          var initial = "def draw_tree(branch_length, level):\n" +
+            "    if level &gt; 0:\n" +
+            "        myTurtle.forward(branch_length)\n" +
+            "        myTurtle.right(45)\n" +
+            "        draw_tree(branch_length / 2, level - 1)\n" +
+            "        myTurtle.left(90)\n" +
+            "        draw_tree(branch_length / 2, level - 1)\n" +
+            "        myTurtle.right(45)\n" +
+            "        myTurtle.backward(branch_length)\n" +
+            "myTurtle.right(270)\n" +
+            "myTurtle.backward(300)\n" +
+            "draw_tree(300, 7)\n" +
+            "if level == 0: #distractor\n" +
+            "myTurtle.forward(branch_length / 2) #distractor\n" +
+            "myTurtle.right(30) #distractor\n" +
+            "draw_tree(branch_length / 2, level) #distractor\n" +
+            "myTurtle.left(60) #distractor\n" +
+            "draw_tree(branch_length / 2, level) #distractor\n" +
+            "myTurtle.right(30) #distractor\n" +
+            "myTurtle.backward(branch_length / 2) #distractor\n" +
+            "level -= 1 #distractor\n" +
+            "else: #distractor";
+          var parson = new ParsonsWidget({
+            "sortableId": "sortable",
+            "max_wrong_lines": 10,
+            "grader": ParsonsWidget._graders.TurtleGrader,
+            "exec_limit": 2500,
+            "can_indent": true,
+            "x_indent": 50,
+            "lang": "de",
+            "show_feedback": true,
+            "trashId": "sortableTrash",
+            "executable_code": "",
+            "programmingLang": "pseudo",
+            "turtleModelCode": "def draw_tree(branch_length, level):\n    if level > 0:\n        modelTurtle.forward(branch_length)\n        modelTurtle.right(45)\n        draw_tree(branch_length / 2, level - 1)\n        modelTurtle.left(90)\n        draw_tree(branch_length / 2, level - 1)\n        modelTurtle.right(45)\n        modelTurtle.backward(branch_length)\nmodelTurtle.right(270)\nmodelTurtle.backward(300)\ndraw_tree(300, 7)"
+          });
+
+          // "turtleModelCode": "def draw_tree(branch_length, level):\n    if level > 0:\n        modelTurtle.forward(branch_length)\n        modelTurtle.right(45)\n        draw_tree(branch_length / 2, level - 1)\n        modelTurtle.left(90)\n        draw_tree(branch_length / 2, level - 1)\n        modelTurtle.right(45)\n        modelTurtle.backward(branch_length)\nmodelTurtle.right(270)\nmodelTurtle.backward(300)\ndraw_tree(300, 7)"
+
+          // Legacy version
+          // var initial = "def draw_tree(branch_length, level):\n" +
+          //   "  if level > 0:\n" +
+          //   "    myTurtle.forward(branch_length)\n" +
+          //   "    myTurtle.right(45)\n" +
+          //   "    draw_tree(branch_length / 2, level - 1)\n" +
+          //   "    myTurtle.left(90)\n" +
+          //   "    draw_tree(branch_length / 2, level - 1)\n" +
+          //   "    myTurtle.right(45)\n" +
+          //   "    myTurtle.backward(branch_length)\n" +
+          //   "myTurtle.right(270)\n" +
+          //   "myTurtle.backward(300)\n" +
+          //   "draw_tree(300, 7)";
           
-          var parson;
-          Sk.canvas = "studentCanvas";
-            parson = new ParsonsWidget({
-                'sortableId': 'sortable',
-                'trashId': 'sortableTrash',
-                'max_wrong_lines': 1,
-                turtleModelCode: "def draw_tree(branch_length, level):\n" +
-                "  if level > 0:\n" +
-                "    modelTurtle.forward(branch_length)\n" +
-                "    modelTurtle.right(45)\n" +
-                "    draw_tree(branch_length / 2, level - 1)\n" +
-                "    modelTurtle.left(90)\n" +
-                "    draw_tree(branch_length / 2, level - 1)\n" +
-                "    modelTurtle.right(45)\n" +
-                "    modelTurtle.backward(branch_length)\n" +
-                "modelTurtle.right(270)\n" +
-                "modelTurtle.penup()\n" +
-                "modelTurtle.backward(300)\n" +
-                "modelTurtle.pendown()\n" +
-                "draw_tree(300, 7)",
-                'grader': ParsonsWidget._graders.TurtleGrader
-                // 'executable_code': "def draw_tree(branch_length, level):\n" +
-                // "if level > 0:\n" +
-                // "myTurtle.forward(branch_length)\n" +
-                // "myTurtle.right(45)\n" +
-                // "draw_tree(branch_length / 2, level - 1)\n" +
-                // "myTurtle.left(90)\n" +
-                // "draw_tree(branch_length / 2, level - 1)\n" +
-                // "myTurtle.right(45)\n" +
-                // "myTurtle.backward(branch_length)\n" +
-                // "myTurtle.right(270)\n" +
-                // "myTurtle.backward(300)\n" +
-                // "draw_tree(300, 7)"
-                // // 'programmingLang': "pseudo"
-            });
+          // parson = new ParsonsWidget({
+          //   'sortableId': 'sortable',
+          //   'trashId': 'sortableTrash',
+          //   'max_wrong_lines': 1,
+          //   turtleModelCode: "def draw_tree(branch_length, level):\n" +
+          //     "  if level > 0:\n" +
+          //     "    modelTurtle.forward(branch_length)\n" +
+          //     "    modelTurtle.right(45)\n" +
+          //     "    draw_tree(branch_length / 2, level - 1)\n" +
+          //     "    modelTurtle.left(90)\n" +
+          //     "    draw_tree(branch_length / 2, level - 1)\n" +
+          //     "    modelTurtle.right(45)\n" +
+          //     "    modelTurtle.backward(branch_length)\n" +
+          //     "modelTurtle.right(270)\n" +
+          //     "modelTurtle.penup()\n" +
+          //     "modelTurtle.backward(300)\n" +
+          //     "modelTurtle.pendown()\n" +
+          //     "draw_tree(300, 7)",
+          //   'grader': ParsonsWidget._graders.TurtleGrader
+          //   // 'executable_code': "def draw_tree(branch_length, level):\n" +
+          //   //   "if level > 0:\n" +
+          //   //   "myTurtle.forward(branch_length)\n" +
+          //   //   "myTurtle.right(45)\n" +
+          //   //   "draw_tree(branch_length / 2, level - 1)\n" +
+          //   //   "myTurtle.left(90)\n" +
+          //   //   "draw_tree(branch_length / 2, level - 1)\n" +
+          //   //   "myTurtle.right(45)\n" +
+          //   //   "myTurtle.backward(branch_length)\n" +
+          //   //   "myTurtle.right(270)\n" +
+          //   //   "myTurtle.backward(300)\n" +
+          //   //   "draw_tree(300, 7)",
+          //   //   'programmingLang': "pseudo"
+          //   });
+
+            Sk.canvas = "studentCanvas";
             parson.init(initial);
             parson.shuffleLines();
-            // parson.numbering();
             $("#newInstanceLink").click(function(event){
                 event.preventDefault();
                 parson.shuffleLines();
@@ -150,7 +189,6 @@
             });
             $("#refreshLink").click(function(event){
                 event.preventDefault();
-                console.log(parson._codelinesAsString());
                 // parson.numbering(toggle);
                 // toggle = !toggle
                 
