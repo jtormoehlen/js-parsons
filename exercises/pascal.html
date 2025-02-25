@@ -11,18 +11,18 @@
 </head>
 
 <body>
-    <h2>Summe im Pascalschen Dreieck</h2>
-    <p>Ausgehend von einer Dreiecksspitze sollen neue Zeilen aus der
-        letzten Zeile erzeugt werden. Jede neue Zeile erhält eine
-        Zelle mehr, sodass sich ein spezielles Dreieck ergibt. Jede
-        Zelle enthält eine Zahl. Die Zahlen werden jeweils aus der
-        übergeordneten Zeile ermittelt, wobei Randfelder den Wert 1
-        erhalten. Die inneren Felder berechnen sich aus der Summe der
-        Werte aus der vorgehenden Zeile. Die aktuelle Zeile wird mit
-        \(i\) und die aktuelle Spalte mit \(j\) angegeben, wobei
-        \(i \in \left\{ 0, \dots ,n-1 \right\}\) und 
-        \(j \in \left\{ 0, \dots ,i \right\}\). Im Folgenden ist
-        die Konstruktion grafisch dargestellt:</p>
+    <h2>Summe eines Zahlendreiecks</h2>
+    <p>Implementieren Sie eine Funktion, die Zahlen gemäß eines speziellen Dreiecks konstruiert, die von der Spitze
+        ausgehen. Die Struktur des Dreiecks ist wie folgt aufgebaut: Jede neue Zeile erhält eine Zelle mehr als die
+        vorherige. Jede Zelle enthält eine Zahl, wobei die Werte wie folgt bestimmt werden:</p>
+    <ul>
+        <li>Die Randfelder jeder Zeile erhalten immer den Wert 1.</li>
+        <li>Die inneren Felder berechnen ihre Werte als Summe der beiden übergeordneten Felder aus der vorherigen Zeile.
+        </li>
+    </ul>
+    <p>Die aktuelle Zeile wird durch \(i\) (mit \(i \in \left\{ 0, \dots ,n-1 \right\}\)) und die aktuelle Spalte durch
+        \(j\) (mit \(j \in \left\{ 0, \dots ,i \right\}\)) angegeben. Eine grafische Darstellung der Konstruktion ist:
+    </p>
 
     <script type="text/tikz">
             \begin{tikzpicture}
@@ -69,8 +69,12 @@
             \end{tikzpicture}
     </script>
 
-    <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
+    <p>Implementieren Sie zunächst eine rekursive Funktion, die die Einträge des Dreiecks ermittelt. Anschließend sollen
+        Sie eine weitere rekursive Funktion implementieren, die die Summe der Einträge des inneren Dreiecks (graue
+        Einträge) berechnet.</p>
+    <p>Bringen Sie den nachfolgenden Python-Code, der das Problem mithilfe von Rekursion löst, in die richtige
+        Reihenfolge.</p>
+
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -88,7 +92,7 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <script>
-    
+
         function displayErrors(fb) {
             if (fb.errors.length > 0) {
                 alert(fb.errors[0]);

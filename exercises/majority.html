@@ -12,11 +12,10 @@
 </head>
 
 <body>
-    <h2>Mehrheitselement bestimmen</h2>
-    <p>Ein Mehrheitselement ist ein Element in einer Menge oder einem
-        Array, das mehr als die Hälfte der Gesamtanzahl der Elemente in
-        dieser Menge oder diesem Array enthält. Eine Beispielinstanz
-        könnte wie folgt aussehen:</p>
+    <h2>Mehrheitselement</h2>
+    <p>Ein Mehrheitselement ist ein Element in einer Menge oder einem Array, welches mehr als die Hälfte der
+        Gesamtanzahl der Elemente in dieser Menge oder diesem Array wiederholt vorkommt. Zum besseren Verständnis
+        betrachten Sie das folgende Beispiel:</p>
 
     <script type="text/tikz">
             \begin{tikzpicture}
@@ -47,14 +46,11 @@
             \end{tikzpicture}
         </script>
 
-    <p>In diesem Fall ist das Mehrheitselement 6, da es viermal
-        enthalten ist, während die Länge des Arrays 7 beträgt.
-        Rekonstruieren Sie den nachfolgenden Code, der das
-        Mehrheitselement in einem gegebenen Array von Zahlen mittels
-        eines Divide-and-Conquer-Verfahrens rekursiv bestimmt.</p>
+    <p>In diesem Fall stellt die Zahl 6 das Mehrheitselement dar, da sie viermal im Array auftaucht, während die
+        Gesamtzahl der Elemente im Array sieben beträgt.</p>
+    <p>Bringen Sie den folgenden Python-Code, der das Mehrheitselement eines gegebenen Arrays von Zahlen mithilfe eines
+        rekursiven Divide-and-Conquer-Ansatzes ermittelt, in die richtige Reihenfolge.</p>
 
-    <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -81,7 +77,7 @@
                 alert(fb.errors[0]);
             }
         }
-        
+
         $(document).ready(function () {
 
             var initial = "def maj_elem(numbers, left, right):\n" +

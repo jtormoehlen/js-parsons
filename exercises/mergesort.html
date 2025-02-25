@@ -10,35 +10,20 @@
 
 <body>
     <h2>Mergesort</h2>
-    <p>Rekonstruieren Sie den Code, der Zahlen in einem Array mittels
-        Mergesort-Verfahren sortiert. Beachten Sie, dass die
-        Funktionen <TT>mergesort()</TT> und <TT>merge()</TT>
-        implementiert werden müssen.</p>
+    <p>Bringen Sie den Python-Code, der ein Array von Zahlen mithilfe des Mergesort-Verfahrens sortiert, in die richtige Reihenfolge. Beachten Sie, dass die Funktionen <TT>mergesort()</TT> und <TT>merge()</TT> implementiert werden müssen.</p>
 
     Mergesort-Funktion:
     <ul>
-        <li>Diese Funktion wird rekursiv aufgerufen, um das Array zu
-            sortieren. Sie teilt das Array in zwei Hälften
-            (<TT>left</TT> und <TT>right</TT>), bis die Liste
-            ein oder weniger Elemente enthält.</li>
-        <li>Der Index an der Hälfte des Arrays wird berechnet, und
-            die beiden Hälften werden rekursiv sortiert.</li>
-        <li>Nach dem Sortieren der beiden Hälften wird
-            <TT>merge()</TT> aufgerufen, um die beiden sortierten
-            Bereiche zusammenzuführen.
-        </li>
+        <li>Diese Funktion wird rekursiv aufgerufen, um das Array zu sortieren. Sie teilt das Array in zwei Hälften (links und rechts), bis jede Teilliste ein oder weniger Elemente enthält.</li>
+        <li>Berechnen Sie den Index der Mitte des Arrays und sortieren Sie die beiden Hälften rekursiv.</li>
+        <li>Nach der Sortierung beider Hälften wird die Funktion <TT>merge()</TT> aufgerufen, um die beiden sortierten Segmente zusammenzuführen.</li>
     </ul>
 
     Merge-Funktion:
     <ul>
-        <li>Diese Funktion übernimmt zwei sortierte Teillisten und
-            fügt sie zu einer sortierten Liste zusammen.</li>
-        <li>Dazu wird ein Vergleich zwischen den Elementen dieser
-            beiden Arrays durchgeführt, um sie in der richtigen
-            Reihenfolge in ein neues Array <TT>merged</TT> zu
-            kopieren.</li>
-        <li>Schließlich werden verbleibende Elemente aus den
-            Teilhälften (falls vorhanden) ergänzt.</li>
+        <li>Diese Funktion übernimmt zwei sortierte Teillisten und fügt sie zu einer neuen, sortierten Liste zusammen.</li>
+        <li>Vergleichen Sie die Elemente der beiden Arrays, um sie in der richtigen Reihenfolge in ein neues Array namens <TT>merged</TT> zu übertragen.</li>
+        <li>Ergänzen Sie schließlich eventuelle verbleibende Elemente aus den Teillisten (falls vorhanden).</li>
     </ul>
 
     <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
