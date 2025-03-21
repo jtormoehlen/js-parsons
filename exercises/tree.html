@@ -52,14 +52,14 @@
     </div>
   </div>
   <div style="clear:both;"></div>
-  <p>Bringen Sie den nachfolgenden Python-Code, der das Zeichnen des Baumes mithilfe des Moduls <TT>turtle</TT>
+  <p>Bringen Sie den nachfolgenden Python-Code, der das Zeichnen des Baumes mithilfe des Moduls <code>turtle</code>
     ermöglicht, in die richtige Reihenfolge. Beachten Sie dabei, dass nur die Funktion zum Zeichnen des Baumes
     implementiert werden muss. Funktionen, die nicht näher spezifiziert sind, dürfen als gegeben angenommen werden.</p>
 
   <p>
     <a href="#" id="newInstanceLink">Shuffle</a>
     <a href="#" id="feedbackLink">Feeback erhalten</a>
-    <a href="#" id="refreshLink">Canvas zurücksetzen</a>
+    <a href="#" id="nextLink">Nächste Aufgabe</a>
   </p>
   <div style="clear:both;"></div>
   <div id="sortableTrash" class="sortable-code"></div>
@@ -183,8 +183,11 @@
           alert("Die Lösung stimmt nicht mit der Demo überein.");
         }
       });
-      $("#refreshLink").click(function (event) {
+      $("#nextLink").click(function (event) {
         event.preventDefault();
+        window.location.href = 'mergesort.html';
+        // Sk.canvas = "studentCanvas";
+        // parson.init(initial);
         // parson.numbering(toggle);
         // toggle = !toggle
 

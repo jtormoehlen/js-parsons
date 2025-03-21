@@ -10,24 +10,24 @@
 
 <body>
     <h2>Mergesort</h2>
-    <p>Bringen Sie den Python-Code, der ein Array von Zahlen mithilfe des Mergesort-Verfahrens sortiert, in die richtige Reihenfolge. Beachten Sie, dass die Funktionen <TT>mergesort()</TT> und <TT>merge()</TT> implementiert werden müssen.</p>
+    <p>Bringen Sie den Python-Code, der ein Array von Zahlen mithilfe des Mergesort-Verfahrens sortiert, in die richtige Reihenfolge. Beachten Sie, dass die Funktionen <code>mergesort()</code> und <code>merge()</code> implementiert werden müssen.</p>
 
     Mergesort-Funktion:
     <ul>
         <li>Diese Funktion wird rekursiv aufgerufen, um das Array zu sortieren. Sie teilt das Array in zwei Hälften (links und rechts), bis jede Teilliste ein oder weniger Elemente enthält.</li>
         <li>Berechnen Sie den Index der Mitte des Arrays und sortieren Sie die beiden Hälften rekursiv.</li>
-        <li>Nach der Sortierung beider Hälften wird die Funktion <TT>merge()</TT> aufgerufen, um die beiden sortierten Segmente zusammenzuführen.</li>
+        <li>Nach der Sortierung beider Hälften wird die Funktion <code>merge()</code> aufgerufen, um die beiden sortierten Segmente zusammenzuführen.</li>
     </ul>
 
     Merge-Funktion:
     <ul>
         <li>Diese Funktion übernimmt zwei sortierte Teillisten und fügt sie zu einer neuen, sortierten Liste zusammen.</li>
-        <li>Vergleichen Sie die Elemente der beiden Arrays, um sie in der richtigen Reihenfolge in ein neues Array namens <TT>merged</TT> zu übertragen.</li>
+        <li>Vergleichen Sie die Elemente der beiden Arrays, um sie in der richtigen Reihenfolge in ein neues Array namens <code>merged</code> zu übertragen.</li>
         <li>Ergänzen Sie schließlich eventuelle verbleibende Elemente aus den Teillisten (falls vorhanden).</li>
     </ul>
 
-    <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
-        verschoben werden, sodass ein lauffähiges Programm entsteht.</p>
+    <!-- <p><strong>Hinweis:</strong> Die Puzzleteile müssen per Drag&Drop
+        verschoben werden, sodass ein lauffähiges Programm entsteht.</p> -->
     <div id="sortableTrash" class="sortable-code"></div>
     <div id="sortable" class="sortable-code">
     </div>
@@ -35,6 +35,7 @@
     <p>
         <a href="#" id="newInstanceLink">Shuffle</a>
         <a href="#" id="feedbackLink">Feeback erhalten</a>
+        <a href="#" id="nextLink">Nächste Aufgabe</a>
     </p>
     <div id="jsparson"></div>
     <script src="../lib/jquery.min.js"></script>

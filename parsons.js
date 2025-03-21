@@ -1334,13 +1334,23 @@
   };
 
 
+  /**
+   * Add seeded ranom number
+   * Math.random() replaced
+   * @param {*} n 
+   * @returns 
+   * 
+   * @author jtormoehlen
+   */
   ParsonsWidget.prototype.getRandomPermutation = function (n) {
+    const seedRandom = new SeedRandom(42);
+
     var permutation = [];
     var i;
     for (i = 0; i < n; i++) {
       permutation.push(i);
     }
-    var swap1, swap2, tmp;
+    var swap1, swap2, tmp;  
     for (i = 0; i < n; i++) {
       swap1 = Math.floor(Math.random() * n);
       swap2 = Math.floor(Math.random() * n);
@@ -1470,6 +1480,30 @@
     }
     this.addLogEntry({ type: 'init', time: new Date(), bindings: bindings });
   };
+
+  /**
+   * Deterministic random number generator (PRNG)
+   * Based on Xorshift algorithm
+   * 
+   * @author jtormoehlen
+   */
+  class SeedRandom {
+    constructor(seed) {
+        this.seed = seed;
+    }
+
+    random() {
+        // Xorshift Algorithmus
+        this.seed ^= (this.seed << 13);
+        this.seed ^= (this.seed >> 17);
+        this.seed ^= (this.seed << 5);
+        return (this.seed >>> 0) / 0xFFFFFFFF; // Normalisiere zwischen 0 und 1
+    }
+
+    randomInt(min, max) {
+        return Math.floor(this.random() * (max - min)) + min;
+    }
+  }
 
   /**
    * Print code lines to console

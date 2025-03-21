@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Pascalsches Dreieck</title>
+    <link href="../parsons.css" rel="stylesheet" />
+    <link href="../lib/prettify.css" rel="stylesheet" />
+    <script src="../lib/prettify.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+</head>
+
+<body>
+    <h2>Zahlendreieck mit Memorisierung</h2>
+    <p>Implementieren Sie eine Funktion, welche die Zahlen gemäß eines speziellen Dreiecks (Pascalsches Dreieck) berechnet. Die Struktur des Dreiecks ist wie folgt aufgebaut: Jede neue Zeile erhält eine Zelle mehr als die
+        vorherige. Jede Zelle enthält eine Zahl, wobei die Werte wie folgt bestimmt werden:</p>
+    <ul>
+        <li>Die Randfelder jeder Zeile erhalten immer den Wert 1.</li>
+        <li>Die inneren Felder berechnen ihre Werte als Summe der beiden übergeordneten Felder aus der vorherigen Zeile.
+        </li>
+    </ul>
+    <p>Die aktuelle Zeile wird durch \(i\) (mit \(i \in \left\{ 0, \dots ,n-1 \right\}\)) und die aktuelle Spalte durch
+        \(j\) (mit \(j \in \left\{ 0, \dots ,i \right\}\)) angegeben.
+    </p>
+
+    <p>Implementieren Sie eine rekursive Funktion, die die Einträge des Dreiecks ermittelt. Verwenden Sie eine Memorisierung, damit jedes Paar genau einmal berechnet wird.</p>
+    <p>Bringen Sie den nachfolgenden Python-Code, der das Problem mithilfe von Rekursion löst, in die richtige
+        Reihenfolge.</p>
+
+    <div id="sortableTrash" class="sortable-code"></div>
+    <div id="sortable" class="sortable-code">
+    </div>
+    <div style="clear:both;"></div>
+    <p>
+        <a href="#" id="newInstanceLink">Shuffle</a>
+        <a href="#" id="feedbackLink">Feeback erhalten</a>
+    </p>
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <script src="../lib/jquery.ui.touch-punch.min.js"></script>
+    <script src="../lib/underscore-min.js"></script>
+    <script src="../lib/lis.js"></script>
+    <script src="../parsons.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+
+        function displayErrors(fb) {
+            if (fb.errors.length > 0) {
+                alert(fb.errors[0]);
+            }
+        }
+
+        $(document).ready(function () {
+
+            var initial = "def binom(i, j, memo={}):\n" +
+                "    if (i, j) in memo:\n" +
+                "        return memo[i, j]\n" +
+                "    if j == 0 or j == i:\n" +
+                "        return 1\n" +
+                "    else:\n" +
+                "        memo[i, j] = binom(i - 1, j, memo) + binom(i - 1, j - 1, memo)\n" +
+                "        return memo[i, j]\n" +
+                "def binom(i, j, memo=()): #distractor\n" +
+                "if {i, j} in memo: #distractor\n" +
+                "memo[i, j] = binom(i, j - 1, memo) + binom(i - 1, j - 1, memo) #distractor";
+            var parson = new ParsonsWidget({
+                "sortableId": "sortable",
+                "max_wrong_lines": 3,
+                "grader": ParsonsWidget._graders.LineBasedGrader,
+                "exec_limit": 2500,
+                "can_indent": true,
+                "x_indent": 50,
+                "lang": "de",
+                "show_feedback": true,
+                "trashId": "sortableTrash"
+            });
+
+            parson.init(initial);
+            parson.shuffleLines();
+            $("#newInstanceLink").click(function (event) {
+                event.preventDefault();
+                parson.shuffleLines();
+            });
+            $("#feedbackLink").click(function (event) {
+                event.preventDefault();
+                parson.getFeedback();
+            });
+        });
+    </script>
+</body>
+
+</html>
