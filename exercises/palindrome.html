@@ -146,13 +146,11 @@
                 "    return longest_palindrome(dna, start + 1, end, longest_seq)\n" +
                 "return seq == seq[::-1] #distractor\n" +
                 "if start &lt; end: #distractor\n" +
-                "return &#039;&#039; #distractor\n" +
                 "subseq = dna[start:length] #distractor\n" +
-                "return subseq #distractor\n" +
                 "return longest_palindrome(dna, start + 1, end - 1, longest_seq) #distractor";
             var parson = new ParsonsWidget({
                 "sortableId": "sortable",
-                "max_wrong_lines": 6,
+                "max_wrong_lines": 4,
                 "grader": ParsonsWidget._graders.LineBasedGrader,
                 "exec_limit": 2500,
                 "can_indent": true,

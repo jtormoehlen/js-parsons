@@ -13,8 +13,7 @@
   <h2>Fraktale Baumzeichnung</h2>
   <p>Ein fraktaler Baum ist ein grafisches Objekt, das durch <i>Selbstähnlichkeit</i> charakterisiert ist. Er besteht
     aus einem Stamm, von dem symmetrisch angeordnete Zweige nach links und rechts abgehen. Jeder Zweig bildet durch
-    Teilung der Strecke in zwei Hälften neue Stämme. </p>
-  <p>Um einen fraktalen Baum beliebiger Tiefe \(n\) zu zeichnen, führen Sie einen rekursiven Algorithmus aus. Ein
+    Teilung der Strecke in zwei Hälften neue Stämme. Um einen fraktalen Baum beliebiger Tiefe \(n\) zu zeichnen, führen Sie einen rekursiven Algorithmus aus. Ein
     Beispiel für einen fraktalen Baum mit einer Tiefe von \(n=7\) wird hier dargestellt:</p>
 
   <style>
@@ -54,12 +53,11 @@
   <div style="clear:both;"></div>
   <p>Bringen Sie den nachfolgenden Python-Code, der das Zeichnen des Baumes mithilfe des Moduls <code>turtle</code>
     ermöglicht, in die richtige Reihenfolge. Beachten Sie dabei, dass nur die Funktion zum Zeichnen des Baumes
-    implementiert werden muss. Funktionen, die nicht näher spezifiziert sind, dürfen als gegeben angenommen werden.</p>
+    implementiert werden muss und die Turtle zu Beginn zentriert nach rechts schaut. Funktionen, die nicht näher spezifiziert sind, dürfen als gegeben angenommen werden.</p>
 
   <p>
     <a href="#" id="newInstanceLink">Shuffle</a>
     <a href="#" id="feedbackLink">Feeback erhalten</a>
-    <a href="#" id="nextLink">Nächste Aufgabe</a>
   </p>
   <div style="clear:both;"></div>
   <div id="sortableTrash" class="sortable-code"></div>
@@ -91,7 +89,7 @@
         "myTurtle.right(270)\n" +
         "myTurtle.backward(300)\n" +
         "draw_tree(300, 7)\n" +
-        "if level == 0: #distractor\n" +
+        "if level >= 0: #distractor\n" +
         "myTurtle.forward(branch_length / 2) #distractor\n" +
         "myTurtle.right(30) #distractor\n" +
         "draw_tree(branch_length / 2, level) #distractor\n" +
@@ -99,11 +97,10 @@
         "draw_tree(branch_length / 2, level) #distractor\n" +
         "myTurtle.right(30) #distractor\n" +
         "myTurtle.backward(branch_length / 2) #distractor\n" +
-        "level -= 1 #distractor\n" +
         "else: #distractor";
       var parson = new ParsonsWidget({
         "sortableId": "sortable",
-        "max_wrong_lines": 10,
+        "max_wrong_lines": 9,
         "grader": ParsonsWidget._graders.TurtleGrader,
         "exec_limit": 2500,
         "can_indent": true,
@@ -182,23 +179,6 @@
         } else {
           alert("Die Lösung stimmt nicht mit der Demo überein.");
         }
-      });
-      $("#nextLink").click(function (event) {
-        event.preventDefault();
-        window.location.href = 'mergesort.html';
-        // Sk.canvas = "studentCanvas";
-        // parson.init(initial);
-        // parson.numbering(toggle);
-        // toggle = !toggle
-
-        // var oldcanv = document.getElementById('turtleFeedback').getElementById('modelCanvas');
-        // console.log(document.getElementById("turtleFeedback").children.item(0));
-        // document.getElementById("turtleFeedback").removeChild(document.getElementById("turtleFeedback").children.item(0));
-        // document.getElementById("turtleFeedback").appendChild(document.getElementById("turtleFeedback").children.item(0));
-        // document.removeChild(oldcanv);
-        // var canv = document.createElement('modelCanvas');
-        // canv.id = 'modelCanvas';
-        // document.body.appendChild(oldcanv);
       });
     });
   </script>
